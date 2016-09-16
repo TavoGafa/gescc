@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<title><ui:insert name="head"></ui:insert></title>
+		<meta http-equiv="Content-Type"
+			content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="Cache-Control"
+			content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="stylesheet" type="text/css" href="../CSS/theme.css" />
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<ui:include src="/WEB-INF/templates/status.xhtml"></ui:include>
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+		</h:form>
+		<div id="contenedor">
+			<div id="header">
+			</div>
+
+			<div id="seccionComfaboy" style="padding-bottom: 40px;">
+				<div id="contenido">
+					<div id="componentePrincipal">
+						<div id="componente">
+							<div>
+								<h2>
+									<ui:insert name="tituloFuncionalidad"></ui:insert>
+								</h2>
+								<h:form>
+									<p:panelGrid styleClass="upan">
+										<p:row>
+											<p:column style="width:100%; padding: 0 0 0 0;">
+												<p:menubar>
+													<p:submenu label="New" icon="ui-icon-document" update="dpem" ajax="false">
+										                <p:menuitem value="Business" url="/empresa/empresa/empresa.faces" />
+										                <p:menuitem value="Case" url="#" />
+													</p:submenu>
+													<p:submenu label="Edit" icon="ui-icon-pencil">
+										                <p:menuitem value="Business" action="#{empre.editarEmpresa()}" />
+										                <p:menuitem value="Case" url="#" />
+										                <p:menuitem value="Copy" url="#" />
+										                <p:menuitem value="Cut" url="#" />
+										                <p:menuitem value="Page" url="#" />
+													</p:submenu>
+													<p:menuitem value="Admin" url="/pages/admin/admin.faces" icon="ui-icon-pencil" />
+													<p:submenu label="Search" icon="ui-icon-search">
+														<p:menuitem value="General" url="/pages/admin/empresa.faces" />
+										                <p:menuitem value="Person" url="#" />
+										                <p:menuitem value="Date" url="#" />
+										                <p:menuitem value="State" url="#" />
+										                <p:menuitem value="State Case" url="#" />
+										                <p:menuitem value="Itin" url="#" />
+													</p:submenu>
+													<p:menuitem value="Quit" url="/pages/admin/admincase.faces" icon="ui-icon-gear" />
+													<p:submenu label="Reports" icon="ui-icon-gear">
+														<p:menuitem value="Report" url="/pages/reportes/reportes.faces"/>
+													</p:submenu>
+													<f:facet name="options">
+														<p:inputText style="margin-right:10px" placeholder="Search"/>
+													</f:facet>
+												</p:menubar>
+											</p:column>
+											<p:column style="width:50px; padding: 0 0 0 0;">
+												<p:commandButton value="#{msg['botonSalir']}"
+													icon="ui-icon-extlink" id="out" style="height:38px;"
+													action="#{prin.logout()}" ajax="false" />
+											</p:column>
+										</p:row>
+									</p:panelGrid>
+									<p:layout style="min-width:1000px;min-height:600px;">
+										<p:layoutUnit position="west" resizable="true" size="100" minSize="150" maxSize="600">
+											<ui:insert name="menus"></ui:insert>
+										</p:layoutUnit>	
+										<p:layoutUnit position="center">
+											<ui:insert name="body"></ui:insert>
+								    	</p:layoutUnit>
+									</p:layout>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div align="center" id="footer">
+			<br />
+			<br />Copyright GES
+		</div>
+	</h:body>
+</f:view>
+</html>

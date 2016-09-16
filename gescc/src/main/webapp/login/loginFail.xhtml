@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template.xhtml">
+	
+	<ui:define name="body">
+		<h:body>
+		<h:form >
+		<br />
+		<br />
+			<div align="center">
+				<p:panel header="#{msg['headerErrAccess']}" style="width:800px">
+					<h:graphicImage url="/images/alert.jpg" alt="Header"/><br />
+					<f:facet name="footer">
+						<div align="center">
+							<h:commandLink action="login.xhtml" style="color:BLUE">#{msg['volverLogin']}</h:commandLink>
+						</div>
+					</f:facet>
+				</p:panel>
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>  
+			</div>
+		</h:form>
+	</h:body>
+	</ui:define>
+	
+	
+	
+</ui:composition> 

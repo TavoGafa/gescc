@@ -1,0 +1,205 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+	<ui:define name="head">::#{prin.usLoged}-  GES ::</ui:define>
+	<ui:define name="menus">
+		<p:graphicImage url="../../images/briefcase_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../../images/user_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../../images/address_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+		<p:graphicImage url="../../images/wallet_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(4,0)}" value="Create Custumers" ajax="false"/><br/>
+	</ui:define>
+	<ui:define name="body">
+	<style>
+		.ui-panelgrid td, .ui-panelgrid tr{
+			border-style: none !important
+	}
+	</style>
+		<h:body>
+			<h:form>
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true" />
+				<br /> <br />
+				<div align="center">
+					<p:panel style="width:1100px; height:700px" id="panelOfficerC" header="#{msg.headerOff}">
+						<div align="center">
+							<p:panelGrid style="width:1000px; height:320;">
+								<p:row style="border-color:transparent !important;">
+									<p:column ><p:outputLabel value="#{msg.labelNombr}" for="nore"/></p:column>
+									<p:column ><p:outputLabel value="Name" for="nombre2"/></p:column>
+									<p:column ><p:outputLabel value="#{msg.labelApe}" for="apell"/></p:column>
+									<p:column ><p:outputLabel value="#{msg.labelApe}" for="apell2"/></p:column>
+									<p:column ><p:outputLabel value="#{msg.labelTipId}" for="sid"/></p:column>
+									<p:column ><p:outputLabel value="#{msg.labelIDent}" for="nit"/></p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:inputText id="nore" maxlength="12"  style="width:150px;" value="#{off.nombre1}"/>
+									</p:column>
+									<p:column>
+										<p:inputText id="nombre2" maxlength="12"  style="width:120px;" value="#{off.nombre2}"/>
+									</p:column>
+									<p:column>
+										<p:inputText id="apell" maxlength="12"  style="width:120px;" value="#{off.apellido1}"/>
+									</p:column>
+									<p:column>
+										<p:inputText id="apell2" maxlength="12"  style="width:120px;" value="#{off.apellido2}"/>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.idtipo}" id="sid" style="width:150px">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{ad.lisTi}" var="td" itemValue="#{td.id}" itemLabel="#{td.nombre}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:inputMask id="nit" maxlength="12"  style="width:150px;" value="#{off.nit}" mask="999-99-9999"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:outputLabel value="#{msg.labelEstC}" for="estc"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelSex}" for="sex"/></p:column>
+									<p:column><p:outputLabel value="Passaport" for="pass"/></p:column>
+									<p:column></p:column>
+									<p:column><p:outputLabel value="#{msg.labelFecV}" for="fechaVP"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelFec}" for="fechaN"/></p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectOneMenu value="#{off.idestadocivil}" id="estc" style="width:120px">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{ad.lisEstCi}" var="e" itemValue="#{e.id}" itemLabel="#{e.nombre}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.idsexo}" id="sex" style="width:120px">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{off.lisSex}" var="s" itemValue="#{s.id}" itemLabel="#{s.nombre}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:inputText id="pass" maxlength="12"  style="width:120px;" value="#{off.pasaporte}"/>
+									</p:column>
+									<p:column></p:column>
+									<p:column><p:calendar id="fechaVP" value="#{off.feDateV}" showOn="button" pattern="dd-MM-yyyy" mask="true"  style="width:150px;"/></p:column>
+									<p:column><p:calendar id="fechaN" value="#{off.fechaNa}" showOn="button" pattern="dd-MM-yyyy" mask="true"  style="width:150px;"/></p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:outputLabel value="#{msg.labelCountry}" for="country"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelState}" for="state"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelCiud}" for="ciudas"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelDir}" for="dirU"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelDirO}" for="diro"/></p:column>
+									<p:column><p:outputLabel for="phone" value="#{msg.labelTel}" /></p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectOneMenu value="#{off.paisn}" id="country" style="width:120px" valueChangeListener="#{off.activarEstadoP}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{ad.listPais}" var="pai" itemValue="#{pai.id}" itemLabel="#{pai.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="state"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.estadon}" id="state" style="width:120px" valueChangeListener="#{off.activarCamposP}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+											<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="ciudas"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.ciudadnacimiento}" id="ciudas" style="width:120px" valueChangeListener="#{off.activarCamposOs}">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{off.lisCiuEC}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="pass"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:inputText id="dirU" maxlength="30"  style="width:150px;" value="#{off.direccionusa}"/>
+									</p:column>
+									<p:column><p:inputText id="diro" maxlength="30"  style="width:150px;" value="#{off.per.direccionorigen}"/></p:column>
+									<p:column><p:inputMask id="phone" value="#{off.telefono1}" mask="(999) 999-9999" style="width: 150px;"/></p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:outputLabel value="#{msg.labelCountry}" for="coTryUsa"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelState}" for="stateUSA"/></p:column>
+									<p:column><p:outputLabel value="#{msg.labelCity}" for="cityUsa" /></p:column>
+									<p:column><p:outputLabel value="#{msg.labelZip}" for="zipUsa"/></p:column>
+									<p:column><p:outputLabel for="phone2" value="#{msg.labelTel}" /></p:column>
+									<p:column><p:outputLabel for="milp" value="Email" /></p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:inputText id="coTryUsa" maxlength="30"  style="width:100px;" value="USA" disabled="true"/></p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.idEstado}" id="stateUSA" style="width:120px" valueChangeListener="#{off.activarCamposD}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+											<f:selectItems value="#{off.lisEstPa}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="cityUsa"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.ciudadusa}" id="cityUsa" style="width: 120px;" valueChangeListener="#{off.activarCamposOs}">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{off.lisCiuE}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="zipUsa"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.zipusa}" id="zipUsa" style="width:120px">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{off.liszipc}" var="c" itemValue="#{c.id}" itemLabel="#{c.zipcode}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column><p:inputMask id="phone2" value="#{off.telefono2}" mask="(999) 999-9999" style="width: 150px;"/></p:column>
+									<p:column><p:inputText id="milp" value="#{off.email}"  style="width: 150px;"/></p:column>
+								</p:row>
+							</p:panelGrid><br/><br/>
+							<p:panelGrid style="whit:920px; height:50" >
+								<p:row>
+									<p:column><p:outputLabel for="useri" value="Usuario" /></p:column>
+									<p:column><h:outputLabel for="passr" value="#{msg.labelPass}" /></p:column>
+									<p:column><p:outputLabel for="preg" value="Pregunta" /></p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:inputText id="useri" maxlength="10"  style="width:150px;" value="#{off.fun.usuario}"/></p:column>
+									<p:column><p:password id="passr" value="#{off.fun.clave}" feedback="true" inline="true"/></p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.fun.idpregunta}" id="preg" style="width: 150px;">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{ad.lisPreg}" var="pr" itemValue="#{pr.id}" itemLabel="#{pr.pregunta}"/>
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column><p:outputLabel for="perf" value="Perfil" /></p:column>
+									<p:column><p:outputLabel for="depend" value="Dependencia" /></p:column>
+									<p:column><p:outputLabel for="resp" value="Respuesta" /></p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectOneMenu value="#{off.fun.idperfil}" id="perf" style="width: 150px;">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{ad.lisPerf}" var="per" itemValue="#{per.id}" itemLabel="#{per.nombre}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{off.fun.iddependencia}" id="depend" style="width: 150px;">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{estc.lisDep}" var="dep" itemValue="#{dep.id}" itemLabel="#{dep.nombre}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column><p:inputText id="resp" maxlength="70"  style="width:150px;" value="#{off.fun.respuesta}"/></p:column>
+								</p:row>
+							</p:panelGrid>
+							<f:facet name="footer">
+								<div align="center">
+									<p:commandButton value="Create" action="#{off.crearFunciorio()}" ajax="false" />
+								</div>	
+							</f:facet>	
+						</div>
+					</p:panel>
+				</div>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

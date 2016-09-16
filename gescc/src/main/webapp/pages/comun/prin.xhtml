@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+  	<ui:define name="head">::#{prin.usLoged}-  GESCC ::</ui:define>
+  	<ui:define name="menus">
+		<p:graphicImage url="../../images/briefcase_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../../images/user_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../../images/address_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+		<p:graphicImage url="../../images/wallet_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(4,0)}" value="Create Custumers" ajax="false"/><br/>
+	</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form >
+			<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>
+				<div align="left">
+					<h:outputLabel value="BIENVENIDO "/>#{prin.usLoged} <h:outputLabel value="AL SISTEMA DE GESCC"/>
+				</div>
+				<div align="center">
+				
+				
+				</div>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition> 

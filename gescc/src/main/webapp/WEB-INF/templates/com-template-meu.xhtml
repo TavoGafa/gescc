@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<title><ui:insert name="head"></ui:insert></title>
+		<meta http-equiv="Content-Type"
+			content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="Cache-Control"
+			content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="stylesheet" href="../../CSS/cambios.css" />
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<ui:include src="/WEB-INF/templates/status.xhtml"></ui:include>
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+		</h:form>
+		<div id="contenedor">
+			<div id="header">
+				<div id="logo">
+					<div id="logo_app"></div>
+					<div id="titulo_app">
+						<ui:insert name="header">
+                                   GES
+                               </ui:insert>
+					</div>
+				</div>
+			</div>
+
+			<div id="seccionComfaboy" style="padding-bottom: 40px;">
+				<div id="contenido">
+					<div id="componentePrincipal">
+						<div id="componente">
+							<div>
+								<h2>
+									<ui:insert name="tituloFuncionalidad"></ui:insert>
+								</h2>
+								<h:form>
+									<p:panelGrid styleClass="upan">
+										<p:row>
+											<p:column style="width:100%; padding: 0 0 0 0;">
+												<p:menubar model="#{mm.menuModel}"></p:menubar>
+											</p:column>
+											<p:column style="width:50px; padding: 0 0 0 0;">
+												<p:commandButton value="#{msg['botonSalir']}"
+													icon="ui-icon-extlink" id="out" style="height:38px;"
+													action="#{prin.logout()}" ajax="false" />
+											</p:column>
+										</p:row>
+									</p:panelGrid>
+								</h:form>
+								<ui:insert name="body">
+									<p:layout style="min-width:400px;min-height:200px;">
+										<p:layoutUnit position="west" resizable="true" size="100"
+											minSize="40" maxSize="200">
+											<h:form>
+												<p:panelMenu style="width:300px">
+													<p:separator />
+													<p:submenu label="Admins">
+														<p:menuitem value="Admin Uno"
+															actionListener="#{prin.panelAct()}" icon="ui-icon-disk"/>
+														<p:menuitem value="Home" oncomplete="/pages/admin/admincase.faces" 
+															icon="ui-icon-home"
+															target="_blank" />
+														<p:menuitem value="Update"
+															actionListener="#{menuView.update}"
+															icon="ui-icon-arrowrefresh-1-w" />
+													</p:submenu>
+												</p:panelMenu>
+											</h:form>
+										</p:layoutUnit>
+
+										<p:layoutUnit position="center">
+											<ui:insert name="cu"></ui:insert>
+										</p:layoutUnit>
+									</p:layout>
+								</ui:insert>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div align="center" id="footer">
+			<br /> <br />Copyright GES
+		</div>
+	</h:body>
+</f:view>
+</html>

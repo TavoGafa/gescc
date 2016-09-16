@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+	<ui:define name="head">::#{prin.usLoged}-  GES ::</ui:define>
+	<ui:define name="menus">
+		<p:graphicImage url="../images/excel.jpg" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../images/excel.jpg" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../images/excel.jpg" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+	</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form>
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true" />
+				<br /> <br />
+    				<div align="center">
+							<p:panel style="width:950px; height:500px" id="panelReport" header="#{msg.headerReport}" >
+								<div align="center">
+									<h:panelGrid id="con" columns="5" style="width:700px" cellpadding="4" cellspacing="4">
+										<p:selectBooleanCheckbox value="#{repor.hc}">
+											<p:ajax update="hc, btnhc, btnrep" listener="#{repor.activeHc}"/>
+										</p:selectBooleanCheckbox>
+										<p:outputLabel for="hc" value="#{msg.labelHC}"/>
+										<p:inputMask id="hc" value="#{repor.caso}" mask="9999-999999" disabled="#{repor.thc}"/>
+										<p:commandButton value="#{msg.botonConsult}" id="btnhc" action="#{repor.consultarReporte()}" update="panelReport" ajax="false" disabled="#{repor.thc}"/>
+										<p:commandButton value="#{msg.botonrepor}" id="btnrep" action="#{repor.generarRepote()}" update="panelReport" ajax="false" disabled="#{repor.thc}"/>
+										
+										<p:selectBooleanCheckbox value="#{repor.sc}">
+											<p:ajax update="sc, btnsc" listener="#{repor.activeSc}"/>
+										</p:selectBooleanCheckbox>
+										<p:outputLabel for="sc" value="#{msg.labelSC}" />
+										<p:selectOneMenu value="#{repor.estado}" id="sc" style="width:150px" disabled="#{repor.tscb}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{estc.estl}" var="es" itemValue="#{es.id}" itemLabel="#{es.nombre}"/>
+										</p:selectOneMenu>
+										<p:commandButton value="#{msg.botonGuarddar}" id="btnsc" action="#{repor.consultarReporte()}" update="panelReport" ajax="false" disabled="#{repor.tscb}"/>
+										
+										<p:selectBooleanCheckbox value="#{repor.oc}">
+											<p:ajax update="oc, btnoc" listener="#{repor.activeOc}"/>
+										</p:selectBooleanCheckbox>
+										<p:outputLabel for="oc" value="#{msg.labeloc}" />
+										<p:selectOneMenu value="#{repor.funcio}" id="oc" style="width:150px" disabled="#{repor.tocb}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{repor.vfun}" var="vf" itemValue="#{vf.identificacion}" itemLabel="#{vf.usuario}"/>
+										</p:selectOneMenu>
+										<p:commandButton value="#{msg.botonGuarddar}" id="btnoc" action="#{repor.consultarReporte()}" update="panelReport" ajax="false" disabled="#{repor.tocb}"/>
+									</h:panelGrid>
+									
+									<p:commandButton value="#{msg.botonHome}" action="#{ad.home()}" update="@form" ajax="false"/>
+									
+									<p:dataTable id="casoid" var="cas" value="#{repor.detalle}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+										rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+													 rowsPerPageTemplate="5,10,15,20" ajax="false">
+									  <p:column headerText="NUMBER CASE"  >
+											<h:outputText value="#{cas.caso}" />
+									   </p:column>
+								       <p:column headerText="SSITIN"  >
+											<h:outputText value="#{cas.numero}" />
+									   </p:column>
+									   <p:column headerText="NAME"  >
+											<h:outputText value="#{cas.nombre}" />
+									   </p:column>
+									   <p:column headerText="USER"  >
+											<h:outputText value="#{cas.usuario}" />
+									   </p:column>
+									   <p:column headerText="DEPENDENCE"  >
+											<h:outputText value="#{cas.dependencia}" />
+									   </p:column>
+									   <p:column headerText="STATE"  >
+											<h:outputText value="#{cas.estado}" />
+									   </p:column>
+									   <p:column headerText="DATE"  >
+											<h:outputText value="#{cas.fecha}" />
+									   </p:column>
+									    <p:column headerText="OBSERVATIONS"  >
+											<h:outputText value="#{cas.observaciones}" />
+									   </p:column>
+								   </p:dataTable>
+								</div>
+							</p:panel>
+				</div>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

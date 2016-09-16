@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+	<named-query name="Funcionario.USUARIO_PERMITIDO">
+		<query>
+			SELECT f
+			FROM Funcionario f
+			WHERE f.usuario =:user
+		</query>
+	</named-query>
+	
+	<named-query name="Perfilopcion.MENU">
+		<query>
+			<![CDATA[
+				select f.usuario, o.descripcion, o.id, po.id.idopcionsistema, o.nombre
+				from Funcionario f, Perfil p, Perfilopcion po, Opcionsistema o
+				where f.idperfil = p.id
+				and p.id = po.id.idperfil
+				and po.id.idopcionsistema= o.id
+				and f.usuario = :usuario
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Pai.LISTAR_PAIS">
+		<query>
+			select p
+			from Pai p
+			order by p.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Pai.LISTAR_PAIS_POR_ID">
+		<query>
+			select p
+			from Pai p
+			where p.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Pai.EDITAR_PAIS">
+		<query>
+			update Pai p set p.nombre=:nombre where p.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudad.LISTAR_CIUDAD">
+		<query>
+			select new co.com.ges.modelo.Ciudad(c.id, c.nombre, c.idestado)
+			from Ciudad c
+			order by c.id asc
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudad.TAER_CIUDAD_EST">
+		<query>
+			select c.id, c.nombre
+			from Ciudad c
+			where c.idestado=:idestado
+			order by c.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudad.CIUDAD_X_ID">
+		<query>
+			select new co.com.ges.modelo.Ciudad(c.id, c.nombre, c.idestado)
+			from Ciudad c
+			where c.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudad.DELETE_CIUDAD">
+		<query>delete from Ciudad c where c.id=:id</query>
+	</named-query>
+	
+	<named-query name="Zip.DELETE_ZIP">
+		<query>delete from Zip z where z.id=:id</query>
+	</named-query>
+	
+	<named-query name="Ciudadzip.DELETE_ZIP">
+		<query>delete from Ciudadzip cz where cz.idciudad=:idc and cz.idzip=:idz</query>
+	</named-query>
+	
+	<named-query name="Estado.TRAER_ESTADO">
+		<query>
+			select e
+			from Estado e
+			order by e.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Estado.TRAER_ESTADO_ID">
+		<query>
+			select e
+			from Estado e
+			where e.id= :id
+		</query>
+	</named-query>
+	
+	<named-query name="Zip.LISTAR_ZIP">
+		<query>	
+			select new co.com.ges.modelo.Zip(z.id, z.zipcode)
+			from Zip z
+			order by z.zipcode asc
+		</query>
+	</named-query>
+	
+	<named-query name="Zip.ZIP_X_ID">
+		<query>
+			select new co.com.ges.modelo.Zip(z.id, z.zipcode)
+			from Zip z
+			where z.id= :id
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudad.EDITAR_CIUDAD">
+		<query>
+			<![CDATA[
+				update Ciudad c set c.nombre=:nombre, c.idfuncionario=:funcionario, c.idestado=:estado, c.fecha=:fecha where c.id=:id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Estado.EDITA_ESTADO">
+		<query>
+			update Estado es set es.nombre=:nombre, es.abreviatura=:abre, es.idpais=:idp where es.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Zip.EDITAR_ZIP">
+		<query>
+			update Zip z set z.zipcode=:codigo, z.fecha=:fecha,z.idtipofuncionario=:tipfun, z.idfuncionario=:funcio where z.id=:id
+			
+		</query>
+	</named-query>
+	
+	<named-query name="Estadocaso.TRAER_EST_CAS">
+		<query>
+			select ec
+			from Estadocaso ec
+			order by ec.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Estadocaso.TRAER_EST_CAS_ID">
+		<query>
+			select ec
+			from Estadocaso ec
+			where ec.id=:id
+		</query>
+	</named-query>
+
+	<named-query name="Estadocaso.EDITAR_EST_CAS">
+		<query>	
+			update Estadocaso ec set ec.nombre=:nombre, ec.estado=:estado, ec.asignacion=:asignacion where ec.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Persona.UPDATE_EMPRESAS">
+		<query>
+			update Persona p set p.ciudadnacimiento=:ciudad, p.direccionusa=:dirusa, p.nombre1=:nombre, p.email=:email, p.telefono1=:tel, p.telefono2=:fax, p.zipusa=:zip
+			WHERE p.id.ssitin=:nit
+		</query>
+	</named-query>
+	
+	<named-query name="Detalle.TRAER_DET">
+		<query>
+			select d
+			from Detalle d
+			order by d.descripcion asc
+		</query>
+	</named-query>
+	
+	<named-query name="Detalle.TRAER_DET_ID">
+		<query>	
+			select d
+			from Detalle d
+			where d.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Detalle.EDITAR_DET">
+		<query>
+			update Detalle d set d.descripcion=:desc, d.valor=:valor where d.id =:id
+		</query>
+	</named-query>
+	
+	<named-query name="Ruta.TRAER_RUT">
+		<query>
+			select r
+			from Ruta r  
+			order by r.nombrebanco asc
+		</query>
+	</named-query>
+	
+	<named-query name="Ruta.TRAER_RUT_ID">
+		<query>
+			select r
+			from Ruta r
+			where r.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Dependencia.TRAER_DEP">
+		<query>	
+			select d
+			from Dependencia d
+			order by d.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Dependencia.TRAER_DEP_ID">
+		<query>
+			select d
+			from Dependencia d
+			where d.id =:id
+		</query>
+	</named-query>
+	
+	<named-query name="Tipodocumento.TRAER_TP">
+		<query>
+			select tp
+			from Tipodocumento tp
+			order by tp.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Tipodocumento.TRAER_TP_ID">
+		<query>
+			select tp
+			from Tipodocumento tp
+			where tp.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Tipogasto.TRAER_TG">
+		<query>
+			select g
+			from Tipogasto g
+			order by g.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Tipogasto.TRAER_TG_ID">
+		<query>
+			select g
+			from Tipogasto g
+			where g.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Tipotarea.TRAER_TG">
+		<query>
+			select tt
+			from Tipotarea tt
+			order by tt.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Tipotarea.TRAER_TG_ID">
+		<query>
+			select tt
+			from Tipotarea tt
+			where tt.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Anio.LISTAR_ANIO">
+		<query>
+			select a
+			from Anio a
+			order by a.nombre desc
+		</query>
+	</named-query>
+	
+	<named-query name="Anio.ANIO_X_ID">
+		<query>
+			select a
+			from Anio a
+			where a.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Pregunta.LISTAR_PREG">
+		<query>
+			select p
+			from Pregunta p
+			order by p.id asc
+		</query>
+	</named-query>
+	
+	<named-query name="Pregunta.PREG_X_ID">
+		<query>
+			select p
+			from Pregunta p
+			where p.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Parametro.LISTAR_PAR">
+		<query>
+			select p
+			from Parametro p
+			order by p.id asc
+		</query>
+	</named-query>
+	
+	<named-query name="Parametro.PAR_X_ID">
+		<query>
+			select p
+			from Parametro p
+			where p.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Perfil.LISTAR_PERF">
+		<query>
+			select p
+			from Perfil p
+			order by p.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Perfil.PERF_X_ID">
+		<query>
+			select p
+			from Perfil p
+			where p.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Estadocivil.LISTAR_EC">
+		<query>
+			select ec
+			from Estadocivil ec
+			order by ec.id asc
+		</query>
+	</named-query>
+	
+	<named-query name="Estadocivil.EC_X_ID">
+		<query>
+			select ec
+			from Estadocivil ec
+			where ec.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Formapagotax.LISTAR_FP">
+		<query>
+			select fp
+			from Formapagotax fp
+			order by fp.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Formapagotax.FP_X_ID">
+		<query>
+			select fp
+			from Formapagotax fp
+			where fp.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Extensione.LISTAR_EX">
+		<query>
+			select ex
+			from Extensione ex
+		</query>
+	</named-query>
+	
+	<named-query name="Formapagofactura.LISTAR_FACPAG">
+		<query>
+			select fpf
+			from Formapagofactura fpf
+			order by fpf.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Formapagofactura.LISTAR_FACPAG_POR_ID">
+		<query>
+			select fpf
+			from Formapagofactura fpf
+			where fpf.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="Tipoparentesco.LISTAR_TIPPAR">
+		<query>
+			select pt
+			from Tipoparentesco pt
+			order by pt.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Tipoparentesco.LISTAR_LISTAR_TIPPAR_POR_ID">
+		<query>
+			select pt
+			from Tipoparentesco pt
+			where pt.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Tipoidentificacion.LISTAR_TIPIDEN">
+		<query>
+			select ident
+			from Tipoidentificacion ident
+			order by ident.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Tipoidentificacion.LISTAR_LISTAR_TIPIDEN_POR_ID">
+		<query>
+			select ident
+			from Tipoidentificacion ident
+			where ident.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Formaenvio.LISTAR_FE">
+		<query>
+			select fe
+			from Formaenvio fe
+			order by fe.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Formaenvio.FE_X_ID">
+		<query>
+			select fe
+			from Formaenvio fe
+			where fe.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Estadofactura.TRAER_EFA">
+		<query>
+			select ef
+			from Estadofactura ef
+			order by ef.nombre asc
+		</query>
+	</named-query>
+	
+	<named-query name="Estadofactura.TRAER_EFA_ID">
+		<query>
+			select ef
+			from Estadofactura ef
+			where ef.id=:id
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudadzip.ZIP_CIU_ID">
+		<query>
+			select cp.idciudad, cp.idzip
+			from Ciudadzip cp
+			where cp.idzip =:zip
+			and cp.idciudad=:ciud
+		</query>
+	</named-query>
+	
+	<named-query name="VFuncionario.TRAER_OFFICER">
+		<query>
+			select new co.com.ges.vistas.VFuncionario(vf.dependencia, vf.funcionario, vf.id, vf.identificacion, vf.perfil, vf.tipoIdentificacion, vf.usuario)
+			from VFuncionario vf
+			order by vf.funcionario asc
+		</query>
+	</named-query>
+	
+	<named-query name="Sexo.TRAER_SEXO">
+		<query>
+			select s
+			from Sexo s
+		</query>
+	</named-query>
+	
+	<named-query name="Ciudadzip.EDIT_ZIP_CIU">
+		<query>
+			update Ciudadzip cz set cz.idciudad=:idciu, cz.fecha=:fech, cz.idfuncionario=:fun, cz.idtipofuncionario=:tipf where cz.idzip=:idzip 
+		</query>
+	</named-query>
+
+	<named-query name="Novedadcaso.LIST_NOVE">
+		<query>
+			select nc
+			from Novedadcaso nc
+			where nc.idcaso=:idcaso
+		</query>
+	</named-query>	
+	
+	<named-query name="Persona.CONSULTAR_EMPRESAS">
+		<query>
+			SELECT p.ciudadnacimiento, p.direccionusa, p.id.ssitin, p.nombre1, p.email, p.nombre2
+			FROM Persona p
+			WHERE p.tipo = 'E'
+		</query>
+	</named-query>
+	
+	<named-query name="Persona.CONSULTAR_EMPRESAS_USUARIO">
+		<query>
+			SELECT p.ciudadnacimiento, p.direccionusa, p.id.ssitin, p.nombre1, p.email, p.apellido1, p.telefono1, p.telefono2, p.nombre2
+			FROM Persona p
+			WHERE p.tipo = 'E'
+			and p.email=:user
+			and p.nombre1 = :nombre
+		</query>
+	</named-query>
+	
+	<named-query name="Persona.CONSULTAR_EMPRESAS_USUARIO_D">
+		<query>
+			SELECT p.ciudadnacimiento, p.direccionusa, p.id.ssitin, p.nombre1, p.email, p.apellido1, p.telefono1, p.telefono2, p.nombre2, p.zipusa
+			FROM Persona p
+			WHERE p.tipo = 'E'
+			and p.nombre2=:user
+			and p.nombre1 = :nombre
+		</query>
+	</named-query>
+	
+	<named-query name="Estado.ESTADO_PAIS">
+		<query>
+			select new co.com.ges.modelo.Estado(e.id, e.nombre)
+			from Estado e
+			where e.idpais=:pais
+		</query>
+	</named-query>
+	
+	<named-query name="Zip.ZIP_CIU">
+		<query>
+		<![CDATA[
+			select z.id, z.zipcode
+			from Ciudadzip cp,Zip z 
+			where cp.idzip = z.id
+			and cp.idciudad  =?1
+		]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Caso.LIST_NOVE_DTO">
+		<query>
+				SELECT c.numerocaso, p.id.ssitin, p.nombre1, p.nombre2, p.apellido1, p.apellido2, f.usuario, nc.idasignado, nc.fecha, nc.observaciones
+				FROM Caso c, Persona p,Funcionario f, Dependencia d, Novedadcaso nc, Estadocaso e
+				where c.idpersona = p.id.ssitin
+				and f.iddependencia = d.id
+				and nc.idfuncionario = f.id.identificacion
+				and c.numerocaso = nc.idcaso
+				and c.idestado = e.id
+				and nc.idestado = e.id
+				and nc.idcaso=:caso
+		</query>
+	</named-query>
+	
+	<named-native-query name="Estadocaso.ID_MAX" result-set-mapping="ec">
+		<query>
+			select max(e.id)+1 as num
+			from ESTADOCASO e
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Pai.MAX_PAIS" result-set-mapping="result">
+		<query>
+			select max(p.id)+1 as num
+			from PAIS p
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Ciudad.TRAER_AMX_ID" result-set-mapping="res">
+		<query>
+			select max(c.id)+1 as num
+			from CIUDAD c
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Estado.TRAER_ESTADO_ID_MAX" result-set-mapping="es">
+		<query>
+			select max(e.id)+1 as num
+			from ESTADO e
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Zip.TRAER_ZMX_ID" result-set-mapping="zip">
+		<query>
+			select max(z.id)+1 as num
+			from ZIP z
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Detalle.ID_MAX" result-set-mapping="ma">
+		<query>
+			select max(d.id)+1 as num
+			from DETALLE d
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Ruta.ID_MAX" result-set-mapping="rut">
+		<query>
+			select max(r.id)+1 as num
+			from RUTAS r
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Dependencia.ID_MAX" result-set-mapping="dep">
+		<query>
+			select max(d.id)+1 as num
+			from DEPENDENCIA d
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Tipodocumento.ID_MAX" result-set-mapping="tp">
+		<query>
+			select max(t.id)+1 as num
+			from TIPODOCUMENTO t
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Tipogasto.ID_MAX" result-set-mapping="tg">
+		<query>
+			select max(t.id)+1 as num
+			from TIPOGASTO t
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Tipotarea.ID_MAX" result-set-mapping="tt">
+		<query>
+			select max(t.id)+1 as num
+			from TIPOTAREA t
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Anio.TRAER_MX_ID" result-set-mapping="am">
+		<query>
+			select max(a.id)+1 as num
+			from ANIO a
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Pregunta.TRAER_MX_ID" result-set-mapping="pe">
+		<query>
+			select max(p.id)+1 as num
+			from PREGUNTA p
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Parametro.TRAER_MX_ID" result-set-mapping="par">
+		<query>
+			select max(p.id)+1 as num
+			from PARAMETROS p
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Perfil.TRAER_PMX_ID" result-set-mapping="pef">
+		<query>
+			select max(p.id)+1 as num
+			from PERFIL p
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Estadocivil.TRAER_ECMX_ID" result-set-mapping="esc">
+		<query>
+			select max(e.id)+1 as num
+			from ESTADOCIVIL e
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Formapagotax.TRAER_MX_ID" result-set-mapping="fp">
+		<query>
+			select max(fp.id)+1 as num
+			from FORMAPAGOTAX fp
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Formapagofactura.MAX_FACPAG" result-set-mapping="fpf">
+		<query>
+			select max(fpf.id)+1 as num
+			from FORMAPAGOFACTURA fpf
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Tipoparentesco.MAX_LISTAR_TIPPAR" result-set-mapping="tpa">
+		<query>
+			select max(fpf.id)+1 as num
+			from TIPOPARENTESCO fpf
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Tipoidentificacion.MAX_LISTAR_TIPIDEN" result-set-mapping="ide">
+		<query>
+			select max(iden.id)+1 as num
+			from TIPOIDENTIFICACION iden
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Formaenvio.TRAER_MX_ID" result-set-mapping="fen">
+		<query>
+			select max(fe.id)+1 as num
+			from FORMAENVIO fe
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Estadofactura.ID_MAX" result-set-mapping="fac">
+		<query>
+			select max(fe.id)+1 as num
+			from ESTADOFACTURA fe
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Ciudadzip.LIST_ZIP_CIU" result-set-mapping="cs">
+		<query>
+			select cp.idciudad as a, cp.idzip as b
+			from CIUDADZIP cp
+		</query>
+	</named-native-query>
+	
+	<sql-result-set-mapping name="result">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="res">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="es">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="zip">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="ec">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="ma">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="rut">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="dep">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="tp">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="tg">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="tt">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="am">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="pe">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="par">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="pef">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+
+	<sql-result-set-mapping name="esc">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="fp">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="fpf">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="tpa">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="ide">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="fen">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="fac">
+		<column-result name="num"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="cs">
+		<column-result name="a"/>
+		<column-result name="b"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="rep">
+		<column-result name="col0"/>
+		<column-result name="col1"/>
+		<column-result name="col2"/>
+		<column-result name="col3"/>
+		<column-result name="col4"/>
+		<column-result name="col5"/>
+		<column-result name="col6"/>
+		<column-result name="col7"/>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping name="zcp">
+		<column-result name="col0"/>
+		<column-result name="col1"/>
+	</sql-result-set-mapping>
+
+</entity-mappings>

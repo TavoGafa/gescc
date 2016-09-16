@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="jpa-ges" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/env/jdbc/ges</jta-data-source>
+		<mapping-file>META-INF/ges-orm.xml</mapping-file>
+		<class>co.com.ges.modelo.Anio</class>
+		<class>co.com.ges.modelo.Aniocontratista</class>
+		<class>co.com.ges.modelo.AniocontratistaPK</class>
+		<class>co.com.ges.modelo.Caso</class>
+		<class>co.com.ges.modelo.Casoanio</class>
+		<class>co.com.ges.modelo.CasoanioPK</class>
+		<class>co.com.ges.modelo.Ciudad</class>
+		<class>co.com.ges.modelo.Ciudadzip</class>
+		<class>co.com.ges.modelo.CiudadzipPK</class>
+		<class>co.com.ges.modelo.Contratista</class>
+		<class>co.com.ges.modelo.Dependencia</class>
+		<class>co.com.ges.modelo.Dependiente</class>
+		<class>co.com.ges.modelo.DependientePK</class>
+		<class>co.com.ges.modelo.Detalle</class>
+		<class>co.com.ges.modelo.Detallefactura</class>
+		<class>co.com.ges.modelo.DetallefacturaPK</class>
+		<class>co.com.ges.modelo.Documento</class>
+		<class>co.com.ges.modelo.Empleado</class>
+		<class>co.com.ges.modelo.Estado</class>
+		<class>co.com.ges.modelo.Estadocaso</class>
+		<class>co.com.ges.modelo.Estadocivil</class>
+		<class>co.com.ges.modelo.Estadofactura</class>
+		<class>co.com.ges.modelo.Extensione</class>
+		<class>co.com.ges.modelo.Factura</class>
+		<class>co.com.ges.modelo.Formaenvio</class>
+		<class>co.com.ges.modelo.Formapagofactura</class>
+		<class>co.com.ges.modelo.Formapagotax</class>
+		<class>co.com.ges.modelo.Funcionario</class>
+		<class>co.com.ges.modelo.FuncionarioPK</class>
+		<class>co.com.ges.modelo.Gasto</class>
+		<class>co.com.ges.modelo.Novedadcaso</class>
+		<class>co.com.ges.modelo.Novedadtarea</class>
+		<class>co.com.ges.modelo.Opcionsistema</class>
+		<class>co.com.ges.modelo.Pago</class>
+		<class>co.com.ges.modelo.Pai</class>
+		<class>co.com.ges.modelo.Parametro</class>
+		<class>co.com.ges.modelo.Perfil</class>
+		<class>co.com.ges.modelo.Perfilestadocaso</class>
+		<class>co.com.ges.modelo.PerfilestadocasoPK</class>
+		<class>co.com.ges.modelo.Perfilopcion</class>
+		<class>co.com.ges.modelo.PerfilopcionPK</class>
+		<class>co.com.ges.modelo.Persona</class>
+		<class>co.com.ges.modelo.PersonaPK</class>
+		<class>co.com.ges.modelo.Pregunta</class>
+		<class>co.com.ges.modelo.Ruta</class>
+		<class>co.com.ges.modelo.Sexo</class>
+		<class>co.com.ges.modelo.Tareacaso</class>
+		<class>co.com.ges.modelo.Tipodocumento</class>
+		<class>co.com.ges.modelo.Tipogasto</class>
+		<class>co.com.ges.modelo.Tipoidentificacion</class>
+		<class>co.com.ges.modelo.Tipoparentesco</class>
+		<class>co.com.ges.modelo.Tipotarea</class>
+		<class>co.com.ges.modelo.Vehiculo</class>
+		<class>co.com.ges.modelo.Zip</class>
+		<class>co.com.ges.vistas.VFuncionario</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

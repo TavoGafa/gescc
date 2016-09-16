@@ -1,0 +1,1333 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+	<ui:define name="head">::#{prin.usLoged}-  GES ::</ui:define>
+	<ui:define name="menus">
+		<p:graphicImage url="../../images/briefcase_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../../images/user_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../../images/address_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+		<p:graphicImage url="../../images/wallet_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(4,0)}" value="Create Custumers" ajax="false"/><br/>
+	</ui:define>
+
+	<ui:define name="body">
+			<style>
+				.ui-panelgrid td, .ui-panelgrid tr{
+					border-style: none !important
+			}
+			</style>
+		<h:body>
+			<h:form>
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true" />
+				<br /> <br />
+				<div align="center">
+					<p:panel style="width:1000px; height:550px" id="plam" header="#{msg.headerOff}">
+						<p:layout style="min-width:1000px;min-height:500px;">
+							<p:layoutUnit position="west" resizable="true" size="100" minSize="150" maxSize="600">
+								<h:panelGrid columns="2" style="width:100px">
+									<p:graphicImage url="../../images/united_states_flag.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panelAct()}" update="panelGeneral,plam" value="Admin Country"/>
+									<p:graphicImage url="../../images/state.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pantAct()}" update="pEstado,plam" value="Admin State"/>
+									<p:graphicImage url="../../images/city.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panDosAct()}" update="panelG,plam" value="Admin City"/>
+									<p:graphicImage url="../../images/map.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panCuaAct()}" update="panZip,plam" value="Admin Zip"/>
+									<p:graphicImage url="../../images/year.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panCinAct()}" update="panelTt,plam" value="Admin Year"/>
+									<p:graphicImage url="../../images/ask.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panSeiAct()}" update="panelPr,plam" value="Admin Ask"/>
+									<p:graphicImage url="../../images/param.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panSeitAct()}" update="panelPm,plam" value="Admin Parameter"/>
+									<p:graphicImage url="../../images/perf.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panocAct()}" update="panelPef,plam" value="Admin Perfil"/>
+									<p:graphicImage url="../../images/anillo.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pannuAct()}" update="panelEstCivi,plam" value="Admin Estado Civil"/>
+									<p:graphicImage url="../../images/id.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandieAct()}" update="panelTiden,plam" value="Admin Tipo Identificación"/>
+									<p:graphicImage url="../../images/correo.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panonAct()}" update="panelFoEn,plam" value="Admin Formato Envio"/>
+									<p:graphicImage url="../../images/shipping4.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandocAct()}" update="panelEsFc,plam" value="Admin Estado Factura"/>
+									<p:graphicImage url="../../images/clipboard_48.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pantrAct()}" update="pnEsc,plam" value="Admin Estado Caso"/>
+									<p:graphicImage url="../../images/monitor_48.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pancatAct()}" update="panelCotol,plam" value="Admin Costo"/>
+									<p:graphicImage url="../../images/bank.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panquiAct()}" update="panelBank,plam" value="Admin Banco"/>
+									<p:graphicImage url="../../images/label_48.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandecAct()}" update="panelDepen,plam" value="Admin Dependencia"/>
+									<p:graphicImage url="../../images/Applications.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandiecAct()}" update="panelTico,plam" value="Admin Tip Documento"/>
+									<p:graphicImage url="../../images/bookmark_32.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandioAct()}" update="panelTg,plam" value="Admin Gasto"/>
+									<p:graphicImage url="../../images/homework.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.pandiecnAct()}" update="panelTit,plam" value="Admin Tarea"/>
+									<p:graphicImage url="../../images/letter_32.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panveinAct()}" update="panelFpt,plam" value="Admin Tax"/>
+									<p:graphicImage url="../../images/zip.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panveinuAct()}" update="panelExtncion,plam" value="Admin Archivo"/>
+									<p:graphicImage url="../../images/Package.png" style="width:20px; height:20px"/><p:commandLink action="#{ad.panveindAct()}" update="panelFpf,plam" value="Admin Factura Pag"/>
+									<p:graphicImage url="../../images/create.jpg" style="width:20px; height:20px"/><p:commandLink action="#{ad.panveintAct()}" update="panelTp,plam" value="Admin Parentezco"/>
+								</h:panelGrid>
+							</p:layoutUnit>
+							<p:layoutUnit position="center">
+									<p:panel style="width:700px; height:300px" id="panelGeneral" header="#{msg.headerPais}" visible="#{ad.actp}">
+										<div align="center">
+											<p:ribbon id="id1" style="width:700px; height:50px">
+												<p:tab title="File">
+												 <p:ribbonGroup label="Options">
+													<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.create()}" update="panelGeneral" ajax="false" image="backgroung-image: url(images/save_32.png)" styleClass="ui-ribbon-bigbutton"/>
+													<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDP()}" update="dp" ajax="false" image="../../images/save_32.png" styleClass="ui-ribbon-bigbutton" />
+												</p:ribbonGroup>
+												</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:200;">
+												<p:row>
+													<p:column><p:outputLabel for="re2" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="re2" value="#{ad.nombre}" completeMethod="#{ad.busqueda}" effect="fade"></p:autoComplete></p:column>
+												</p:row>
+											</p:panelGrid>											
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:300px" id="panelG" header="#{msg.headerCiudad}" visible="#{ad.actpd}">
+										<div align="center">
+											<p:ribbon id="id2" style="width:700px; height:50px">
+												<p:tab title="File">
+												 <p:ribbonGroup label="Options">
+													<p:commandButton value="#{msg.botonGuarddar}" action="#{ciud.crearCiudad()}" update="@form,panelG" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+													<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDC()}" update="dc" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+												</p:ribbonGroup>
+												</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="selPaisciu" value="#{msg.labelPais}" /></p:column>	
+													<p:column><p:outputLabel for="selCodEs" value="#{msg.labelEstado}" /></p:column>
+													<p:column><p:outputLabel for="no" value="#{msg.labelNombre}" style="width:150px"/></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:selectOneMenu value="#{ciud.paisc}" id="selPaisciu" style="width:150px" valueChangeListener="#{off.activarEstado}">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{ad.listPais}" var="pa" itemValue="#{pa.id}" itemLabel="#{pa.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="selCodEs"/>
+														</p:selectOneMenu> <BR/> <BR />
+													</p:column>
+													<p:column>
+														<p:selectOneMenu value="#{ciud.codEsta}" id="selCodEs" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+														</p:selectOneMenu> <BR/> <BR />
+													</p:column>
+													<p:column>
+														<p:autoComplete id="no" value="#{ciud.nomCiud}" completeMethod="#{ciud.busquedaCiu}" effect="fade"/><BR/> <BR />
+													</p:column>	
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:250px" id="pEstado" header="#{msg.headerEstado}" visible="#{ad.actpes}">
+										<div align="center">
+											<p:ribbon id="id3" style="width:700px; height:50px">
+												<p:tab title="File">
+												 <p:ribbonGroup label="Options">
+													<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearEstado()}" update="@from,pEstado" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+													<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDE()}" update="de" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+												</p:ribbonGroup>
+												</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="selCodEs" value="#{msg.labelPais}" /></p:column>
+													<p:column><p:outputLabel for="nomb" value="#{msg.labelNombre}"/></p:column>
+													<p:column><p:outputLabel for="abr" value="#{msg.labelAbre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:selectOneMenu value="#{ad.estado.idpais}" id="selCodP" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{ad.listPais}" var="pa" itemValue="#{pa.id}" itemLabel="#{pa.nombre}"/>
+														</p:selectOneMenu>
+													</p:column>
+													<p:column>
+														<p:autoComplete id="nomb" value="#{ad.estado.nombre}" completeMethod="#{ad.busquedaEst}" effect="fade"/><BR/> <BR />
+													</p:column>
+													<p:column>
+														<p:inputText id="abr" value="#{ad.estado.abreviatura}" ></p:inputText>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:250px" id="panZip" header="#{msg.headerZip}" visible="#{ad.actpzip}">
+										<div align="center">
+											<p:ribbon id="id4" style="width:700px; height:50px">
+												<p:tab title="File">
+													 <p:ribbonGroup label="Options">
+														<p:commandButton value="#{msg.botonGuarddar}" action="#{zip.crearZip()}" update="@form,panZip" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+														<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDZ()}" update="dz" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />				
+													</p:ribbonGroup>
+												</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel value="#{msg.labelCountry}" for="coPaisj"/></p:column>
+													<p:column><p:outputLabel value="#{msg.labelState}" for="statej"/></p:column>
+													<p:column><p:outputLabel value="#{msg.labelCity}" for="selCciuz" /></p:column>
+													<p:column><p:outputLabel for="nombz" value="#{msg.labelZip}" style="width:150px"/></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:selectOneMenu value="#{zip.pac}" id="coPaisj" style="width:100px" valueChangeListener="#{off.activarEstado}">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{ad.listPais}" var="pai" itemValue="#{pai.id}" itemLabel="#{pai.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="statej"/>
+														</p:selectOneMenu>
+													</p:column>
+													<p:column>
+														<p:selectOneMenu value="#{zip.estc}" id="statej" style="width:100px" valueChangeListener="#{off.activarCampos}">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+															<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="selCciuz"/>
+														</p:selectOneMenu>
+													</p:column>
+													<p:column>
+														<p:selectOneMenu value="#{zip.ciuz}" id="selCciuz" style="width:100px" valueChangeListener="#{off.activarCamposO}">
+															<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+															<f:selectItems value="#{off.lisCiuE}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+														</p:selectOneMenu>
+													</p:column>
+													<p:column><p:autoComplete id="nombz" value="#{zip.zip.zipcode}" completeMethod="#{zip.busquedaZip}" effect="fade" maxlength="7" mask="99999"></p:autoComplete></p:column>
+												</p:row>											
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelTt" header="#{msg.headerAnio}" visible="#{ad.actpanio}">
+										<div align="center">
+											<p:ribbon id="id5" style="width:700px; height:50px">
+												<p:tab title="File">
+													 <p:ribbonGroup label="Options">
+														<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearAnio()}" update="@form,panelTt" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+														<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDY()}" update="dy" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+													</p:ribbonGroup>
+												</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nan" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:inputMask id="nan" value="#{ad.an.nombre}" mask="9999"></p:inputMask></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelPr" header="#{msg.headerPreg}" visible="#{ad.actppr}">
+										<div align="center">
+											<p:ribbon id="id6" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearPregunta()}" update="@form,panelPr" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDA()}" update="dpre" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+												</p:ribbon> 
+												<br/>
+												<p:panelGrid style="width:600px; height:320;">
+													<p:row>
+														<p:column><p:outputLabel for="npr" value="#{msg.labelPregunta}" /></p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:inputText id="npr" value="#{ad.pr.pregunta}" ></p:inputText>
+														</p:column>
+													</p:row>												
+												</p:panelGrid>							
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:270px" id="panelPm" header="#{msg.labelParam}" visible="#{ad.actppam}">
+										<div align="center">
+												<p:ribbon id="id7" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearParam()}" update="@form,panelPm" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDPA()}" update="dpar" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+												</p:ribbon> 
+												<br/>
+												<p:panelGrid style="width:600px; height:320;">
+													<p:row>
+														<p:column><p:outputLabel for="selCEP" value="#{msg.labelEstado}" /></p:column>
+														<p:column><p:outputLabel for="dir" value="#{msg.labelDireccion}" /></p:column>
+														<p:column><p:outputLabel value="#{msg.labelCountry}" for="coupar"/></p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:selectOneMenu value="#{ad.param.estado}" id="selCEP" style="width:150px">
+																<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+																<f:selectItems value="#{estc.lienu}" var="l" itemValue="#{l.idComponente}" itemLabel="#{l.nombre}"/>
+															</p:selectOneMenu>
+														</p:column>
+														<p:column><p:inputText id="dir" value="#{ad.param.direccion}" ></p:inputText></p:column>
+														<p:column>
+															<p:selectOneMenu value="#{empre.pa}" id="coupar" style="width:150px" valueChangeListener="#{off.activarEstado}">
+																<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+																<f:selectItems value="#{ad.listPais}" var="pai" itemValue="#{pai.id}" itemLabel="#{pai.nombre}"/>
+																<p:ajax event="valueChange" immediate="true" process="@this" update="stapar"/>
+															</p:selectOneMenu>
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column><p:outputLabel value="#{msg.labelState}" for="stapar"/></p:column>
+														<p:column><p:outputLabel for="selICi" value="#{msg.labelCiudad}" /></p:column>
+														<p:column><p:outputLabel for="selz" value="#{msg.labelZip}" /></p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:selectOneMenu value="#{empre.est}" id="stapar" style="width:150px" valueChangeListener="#{off.activarCampos}">
+																<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+																<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+																<p:ajax event="valueChange" immediate="true" process="@this" update="selICi"/>
+															</p:selectOneMenu>
+														</p:column>
+														<p:column>
+															<p:selectOneMenu value="#{ad.param.idciudadpobox}" id="selICi" style="width:150px" valueChangeListener="#{off.activarCamposO}">
+																<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+																<f:selectItems value="#{off.lisCiuE}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+																<p:ajax event="valueChange" immediate="true" process="@this" update="selz"/>
+															</p:selectOneMenu>
+														</p:column>
+														<p:column>
+															<p:selectOneMenu value="#{ad.param.idzippobox}" id="selz" style="width:150px">
+																<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+																<f:selectItems value="#{off.liszipc}" var="c" itemValue="#{c.id}" itemLabel="#{c.zipcode}"/>
+															</p:selectOneMenu>
+														</p:column>
+													</p:row>
+												</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelPef" header="#{msg.headerPerfil}" visible="#{ad.actpperf}">
+										<div align="center">
+											<p:ribbon id="id8" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearPerfil()}" update="@form,panelPef" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDPr()}" update="dpro" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="npf" value="#{msg.labelNombre}" /></p:column>
+													<p:column><p:outputLabel for="ndf" value="#{msg.labelDescripcion}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:autoComplete id="npf" value="#{ad.perf.nombre}" completeMethod="#{ad.busquedaPer}" effect="fade"/>
+													</p:column>
+													<p:column>
+														<p:inputText id="ndf" value="#{ad.perf.descripcion}" ></p:inputText>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:250px" id="panelEstCivi" header="#{msg.headerEstCivi}" visible="#{ad.actpec}">
+										<div align="center">
+										<p:ribbon id="id9" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearEstadoCivil()}" update="@form,panelEstCivi" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDEC()}" update="detc" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nestc" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:autoComplete id="nestc" value="#{ad.ec.nombre}" completeMethod="#{ad.busquedaEC}" effect="fade"/>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelTiden" header="#{msg.headerTi}" visible="#{ad.actptid}">
+										<div align="center">
+											<p:ribbon id="id10" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearTipoIden()}" update="@form,panelTiden" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDTi()}" update="dtid" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ntid" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ntid" value="#{ad.ti.nombre}" completeMethod="#{ad.busquedaTI}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelFoEn" header="#{msg.headerFe}" visible="#{ad.actpfe}">
+										<div align="center">
+											<p:ribbon id="f30" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" ction="#{ad.crearFormaEnvio()}" update="@form,panelFoEn" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDfe()}" update="dfe" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<h:panelGrid style="width:600px; height:320;">
+												<p:outputLabel for="nfe" value="#{msg.labelNombre}" />
+												<p:autoComplete id="nfe" value="#{ad.fe.nombre}" completeMethod="#{ad.busquedaFe}" effect="fade"/>
+											</h:panelGrid>
+											
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelEsFc" header="#{msg.headerEf}" visible="#{ad.actpef}">
+										<div align="center">
+										<p:ribbon id="id11" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{ad.crearEstadoFacrura()}" update="@form,panelEsFc" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDef()}" update="dEF" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ncfe" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ncfe" value="#{ad.efc.nombre}" completeMethod="#{ad.busquedaEF}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:250px" id="pnEsc" header="#{msg.headerES}" visible="#{ad.actpesc}">
+										<div align="center">
+											<p:ribbon id="id12" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearEstaCaso()}" update="@form,pnEsc" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDec()}" update="dsc" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="idn" value="#{msg.labelNombre}" /></p:column>
+													<p:column><p:outputLabel for="sels" value="#{msg.labelEstado}" /></p:column>
+													<p:column><p:outputLabel for="selas" value="#{msg.labelAsigaci}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="idn" value="#{estc.esc.nombre}" completeMethod="#{estc.busquedaEstC}" effect="fade"/></p:column>
+													<p:column>
+														<p:selectOneMenu value="#{estc.esc.estado}" id="sels" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{estc.lienu}" var="l" itemValue="#{l.idComponente}" itemLabel="#{l.nombre}"/>
+														</p:selectOneMenu>
+													</p:column>
+													<p:column>
+														<p:selectOneMenu value="#{estc.esc.asignacion}" id="selas" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{estc.as}" var="a" itemValue="#{a.id}" itemLabel="#{a.nombre}"/>
+														</p:selectOneMenu>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelCotol" header="#{msg.headerCos}" visible="#{ad.actpecos}">
+										<div align="center">
+										<p:ribbon id="id13" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearDetalle()}" update="@form,panelCotol" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDco()}" update="cos" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nde" value="#{msg.labelNombre}" /></p:column>
+													<p:column><p:outputLabel for="val" value="#{msg.labelVal}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:autoComplete id="nde" value="#{estc.deta.descripcion}" completeMethod="#{estc.busquedaCos}" effect="fade"/>
+													</p:column>
+													<p:column>
+														<p:inputText id="val" value="#{estc.deta.valor}" ></p:inputText>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelBank" header="#{msg.headerBank}" visible="#{ad.actpbak}">
+										<div align="center">
+											<p:ribbon id="id14" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearRuta()}" update="@form,panelBank" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDb()}" update="bnk" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nb" value="Acount Name" /></p:column>
+													<p:column><p:outputLabel for="numeb" value="Routing Number" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="nb" value="#{estc.ruta.nombrebanco}" completeMethod="#{estc.busquedaBan}" effect="fade"/></p:column>
+													<p:column><p:inputMask id="numeb" value="#{estc.ruta.numero}" mask="999999999"></p:inputMask></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelDepen" header="#{msg.headerDepend}" visible="#{ad.actpdep}">
+										<div align="center">
+											<p:ribbon id="id15" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearDepen()}" update="@form,panelDepen" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDd()}" update="dpe" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ndep" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ndep" value="#{estc.dep.nombre}" completeMethod="#{estc.busquedaDep}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelTico" header="#{msg.headerTico}" visible="#{ad.actptidoc}">
+										<div align="center">
+											<p:ribbon id="id16" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearTico()}" update="@form,panelTico" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDTi()}" update="ttd" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nti" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="nti" value="#{estc.tico.nombre}" completeMethod="#{estc.busquedaTico}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelTg" header="#{msg.headerGasto}" visible="#{ad.actpgas}">
+										<div align="center">
+											<p:ribbon id="id17" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearTipoGas()}" update="@form,panelTg" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDg()}" update="tsp" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ntg" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ntg" value="#{estc.tg.nombre}" completeMethod="#{estc.busquedaTg}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelTit" header="#{msg.headerTipTar}" visible="#{ad.actptar}">
+										<div align="center">
+											<p:ribbon id="id18" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearTt()}" update="@form,panelTit" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDt()}" update="hw" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ntt" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ntt" value="#{estc.tt.nombre}" completeMethod="#{estc.busquedaTt}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:220px" id="panelFpt" header="#{msg.headerFpt}" visible="#{ad.actpfpta}">
+										<div align="center">
+											<p:ribbon id="id19" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearFtp()}" update="@form,panelFpt" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDtx()}" update="tax" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nfpt" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="nfpt" value="#{estc.ftp.nombre}" completeMethod="#{estc.busquedaTt}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+											<f:facet name="footer">
+												<div align="center">
+													<p:commandButton value="#{msg.botonGuarddar}"  ajax="false"/>
+												</div>
+											</f:facet>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelExtncion" header="#{msg.headerExte}" visible="#{ad.actptia}">
+										<div align="center">
+											<p:ribbon id="id20" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearExtension()}" update="@form,panelExtncion" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDar()}" update="arc" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ext" value="#{msg.labelExten}" /></p:column>
+													<p:column><p:outputLabel for="des" value="#{msg.labelDescrip}" /></p:column>
+													<p:column><p:outputLabel for="dirp" value="#{msg.labelDire}" /></p:column>
+													<p:column><p:outputLabel for="eje" value="#{msg.labelEjec}" /></p:column>
+													<p:column><p:outputLabel for="est" value="#{msg.labelEstado}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:inputText id="ext" value="#{estc.exten.extension}"></p:inputText></p:column>
+													<p:column><p:inputText id="des" value="#{estc.exten.descripcion}" ></p:inputText></p:column>
+													<p:column><p:inputText id="dirp" value="#{estc.exten.directorio}" ></p:inputText></p:column>
+													<p:column><p:inputText id="eje" value="#{estc.exten.ejecutable}" ></p:inputText></p:column>
+													<p:column>
+														<p:selectOneMenu value="#{estc.exten.estado}" id="est" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{estc.lienu}" var="l" itemValue="#{l.idComponente}" itemLabel="#{l.nombre}"/>
+														</p:selectOneMenu>
+													</p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelFpf" header="#{msg.headerFpf}" visible="#{ad.actpfpf}">
+										<div align="center">
+											<p:ribbon id="id21" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearFormaPagoFactura()}" update="@form,panelFpf" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDfr()}" update="fac" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="nfpf" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="nfpf" value="#{estc.fpf.nombre}" completeMethod="#{estc.busquedaFpf}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+									<p:panel style="width:700px; height:200px" id="panelTp" header="#{msg.headerTp}" visible="#{ad.actptip}">
+										<div align="center">
+											<p:ribbon id="id22" style="width:700px; height:50px">
+													<p:tab title="File">
+														 <p:ribbonGroup label="Options">
+															<p:commandButton value="#{msg.botonGuarddar}" action="#{estc.crearTipoParentesco()}" update="@form,panelTp" ajax="false" icon="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton"/>
+															<p:commandButton value="#{msg.botonEdit}" action="#{ad.activarDpar()}" update="par" ajax="false" image="ui-ribbonicon-new" styleClass="ui-ribbon-bigbutton" />		
+														</p:ribbonGroup>
+													</p:tab>
+											</p:ribbon> 
+											<br/>
+											<p:panelGrid style="width:600px; height:320;">
+												<p:row>
+													<p:column><p:outputLabel for="ntp" value="#{msg.labelNombre}" /></p:column>
+												</p:row>
+												<p:row>
+													<p:column><p:autoComplete id="ntp" value="#{estc.tp.nombre}" completeMethod="#{estc.busquedaTp}" effect="fade"/></p:column>
+												</p:row>
+											</p:panelGrid>
+										</div>
+									</p:panel>
+							</p:layoutUnit>
+						</p:layout>
+					</p:panel>
+					<p:dialog id="dp" header="EDIT COUNTRY" widgetVar="dp" minimizable="true" maximizable="true" visible="#{ad.diP}">
+						<p:panel style="width:500px; height:350px" id="p">
+							<p:dataTable id="paised" var="pa" value="#{ad.listPais}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+								rowsPerPageTemplate="5,10,15,20" ajax="false">
+								<p:ajax event="rowEdit" listener="#{ad.edit(pa)}" update="paised" />
+								<p:ajax event="rowEditCancel" listener="#{ad.delete(pa)}" pdate="paised" />
+								<p:column headerText="#{msg.labelPais}">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{pa.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{pa.nombre}" style="width:100%" label="#{msg.labelPais}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+								<p:rowEditor>
+								</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="de" header="EDIT STATE" widgetVar="de" minimizable="true" maximizable="true" visible="#{ad.de}">
+						<p:panel style="width:500px; height:350px" id="st">
+							<p:dataTable id="testa" var="et" value="#{ad.listEstado}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " rowsPerPageTemplate="5,10,15,20" ajax="false"
+								filteredValue="#{ad.estFilter}" binding="#{ad.dtActuE}">
+								<p:ajax event="rowEdit" listener="#{ad.editEstado(et)}" update="testa" />
+								<p:ajax event="rowEditCancel" listener="#{ad.deleteEstado(et)}" update="testa" />
+								<p:column headerText="#{msg.labelAbr}" filterBy="#{et.abreviatura}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{et.abreviatura}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{et.abreviatura}" style="width:100%"
+												label="#{msg.labelAbre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelNombre}"
+									filterBy="#{et.nombre}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{et.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{et.nombre}" style="width:100%"
+												label="#{msg.labelNombre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelPais}">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{et.idpais}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{et.idpais}" style="width:150px">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}"
+													itemValue="0" />
+												<f:selectItems value="#{ad.listPais}" var="pa"
+													itemValue="#{pa.id}" itemLabel="#{pa.nombre}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+									<p:rowEditor>
+									</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dc" header="EDIT CITY" widgetVar="dc" minimizable="true" maximizable="true" visible="#{ad.dc}">
+						<p:panel style="width:500px; height:350px" id="c">
+							<p:dataTable id="ciudT" var="ciu" value="#{ciud.ciud}" editable="true" style="margin-bottom:20px"
+								emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+								rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ciud.contFilter}" binding="#{ciud.dtActu}">
+								<p:ajax event="rowEdit" listener="#{ciud.editCiudad(ciu)}"
+									update="ciudT" />
+								<p:ajax event="rowEditCancel"
+									listener="#{ciud.deleteCiudad(ciu)}" update="ciudT" />
+								<p:column headerText="#{msg.labelCiudad}"
+									filterBy="#{ciu.nombre}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{ciu.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{ciu.nombre}" style="width:100%"
+												label="#{msg.labelPais}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEst}">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{ciu.idestado}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{ciu.idestado}" style="width:150px">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}"
+													itemValue="0" />
+												<f:selectItems value="#{ad.listEstado}" var="es"
+													itemValue="#{es.id}" itemLabel="#{es.nombre}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+									<p:rowEditor>
+									</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dz" header="EDIT CODE ZIP" widgetVar="dz" minimizable="true" maximizable="true" visible="#{ad.dz}">
+						<p:panel style="width:500px; height:350px" id="Z">
+							<p:dataTable id="tzip" var="zp" value="#{zip.lisCZip}" editable="true" style="margin-bottom:20px"
+								emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+								rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{zip.zipCFilter}" binding="#{zip.dtActuZ}">
+								<p:ajax event="rowEdit" listener="#{zip.editarZip(zp)}"
+									update="tzip" />
+								<p:ajax event="rowEditCancel" listener="#{zip.deleteZip(zp)}" update="tzip" />
+								<p:column headerText="#{msg.labelCodZ}" filterBy="#{zp.codZip}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{zp.codZip}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{zp.codZip}" style="width:100%" label="#{msg.labelCodZ}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelCodZ}" filterBy="#{zp.nombreCiudad}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{zp.nombreCiudad}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{zp.idCiudad}" style="width:150px">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0" />
+												<f:selectItems value="#{ciud.ciud}" var="ci" itemValue="#{ci.id}" itemLabel="#{ci.nombre}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+									<p:rowEditor>
+									</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog><p:dialog id="dy" header="EDIT YEAR" widgetVar="dy" minimizable="true" maximizable="true" visible="#{ad.dy}">
+						<p:panel style="width:500px; height:350px" id="y">
+							<p:dataTable id="deAn" var="ano" value="#{ad.lisAnio}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+								rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.anioFilter}" binding="#{ad.dtActuAn}">
+								<p:ajax event="rowEdit" listener="#{ad.editarAnio(ano)}" update="deAn" />
+								<p:ajax event="rowEditCancel" listener="#{ad.deleteAnio(ano)}" update="deAn" />
+								<p:column headerText="#{msg.labelNombre}" filterBy="#{ano.nombre}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{ano.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{ano.nombre}" style="width:100%" label="#{msg.labelNombre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+									<p:rowEditor>
+									</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dpre" header="EDIT ASK" widgetVar="dpre" minimizable="true" maximizable="true" visible="#{ad.da}">
+						<p:panel style="width:500px; height:350px" id="pre">
+							<p:dataTable id="dePr" var="pre" value="#{ad.lisPreg}" editable="true" style="margin-bottom:20px"
+								emptyMessage="#{msg.labelNoReg}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+								rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.preFilter}" binding="#{ad.dtActuPr}">
+								<p:ajax event="rowEdit" listener="#{ad.editarPregunta(pre)}" update="dePr" />
+								<p:ajax event="rowEditCancel" listener="#{ad.deletePregunta(pre)}" update="dePr" />
+								<p:column headerText="#{msg.labelPregunt}" filterBy="#{pre.pregunta}" filterMatchMode="contains">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{pre.pregunta}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{pre.pregunta}" style="width:100%" label="#{msg.labelPregunt}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="#{msg.labelEditar}">
+									<p:rowEditor>
+									</p:rowEditor>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dpar" header="EDIT PARAMETER" widgetVar="dpar" minimizable="true" maximizable="true" visible="#{ad.dp}">
+						<p:panel style="width:500px; height:350px" id="cpa">
+							<p:dataTable id="dePa" var="pm" value="#{ad.lisParam}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.paramFilter}" binding="#{ad.dtActuPm}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarParam(pm)}" update="dePa"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deleteParam(pm)}" update="dePa"/>
+						       <p:column headerText="#{msg.labelEstado}">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pm.estado}" /></f:facet>
+						               <f:facet name="input">
+						               		<p:selectOneMenu value="#{pm.estado}" style="width:150px">
+							               		<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+												<f:selectItems value="#{estc.lienu}" var="e" itemValue="#{e.idComponente}" itemLabel="#{e.nombre}"/>
+						               		</p:selectOneMenu>
+						               </f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelDireccion}" filterBy="#{pm.direccion}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pm.direccion}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{pm.direccion}" style="width:100%" label="#{msg.labelDireccion}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelCiudad}" filterBy="#{pm.idciudadpobox}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pm.idciudadpobox}" /></f:facet>
+						               <f:facet name="input">
+						               		<p:selectOneMenu value="#{pm.idciudadpobox}" style="width:150px">
+							               		<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+												<f:selectItems value="#{ciud.ciud}" var="c" itemValue="#{c.id}" itemLabel="#{c.nombre}"/>
+						               		</p:selectOneMenu>
+						               </f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						        <p:column headerText="#{msg.labelZip}" filterBy="#{pm.idzippobox}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pm.idzippobox}" /></f:facet>
+						                <f:facet name="input">
+						               		<p:selectOneMenu value="#{pm.idzippobox}" style="width:150px">
+							               		<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+												<f:selectItems value="#{zip.lisZip}" var="z" itemValue="#{z.zipcode}" itemLabel="#{z.zipcode}"/>
+						               		</p:selectOneMenu>
+						               </f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dpro" header="EDIT PROFILE" widgetVar="dpro" minimizable="true" maximizable="true" visible="#{ad.dpr}">
+						<p:panel style="width:500px; height:350px" id="pro">
+							<p:dataTable id="dePef" var="pef" value="#{ad.lisPerf}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.perfFilter}" binding="#{ad.dtActuPf}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarPerfil(pef)}" update="dePef"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deletePerfil(pef)}" update="dePef"/>
+						       <p:column headerText="#{msg.labelNombre}" filterBy="#{pef.nombre}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pef.nombre}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{pef.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelDesc}" filterBy="#{pef.descripcion}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{pef.descripcion}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{pef.descripcion}" style="width:100%" label="#{msg.labelDesc}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="detc" header="EDIT CIVIL STATUS" widgetVar="detc" minimizable="true" maximizable="true" visible="#{ad.deci}">
+						<p:panel style="width:500px; height:350px" id="cs">
+							<p:dataTable id="deEstC" var="estci" value="#{ad.lisEstCi}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.estCiFilter}" binding="#{ad.dtActuEstC}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarEstadoCivil(estci)}" update="deEstC"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deleteEstadoCivil(estci)}" update="deEstC"/>
+						       <p:column headerText="#{msg.labelNombre}" filterBy="#{estci.nombre}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{estci.nombre}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{estci.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dtid" header="EDIT IDENTIFICATION TYPE" widgetVar="dtid" minimizable="true" maximizable="true" visible="#{ad.dti}">
+						<p:panel style="width:500px; height:350px" id="it">
+							<p:dataTable id="dttid" var="tiden" value="#{ad.lisTi}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.tiFilter}" binding="#{ad.dtActuTi}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarTipoIden(tiden)}" update="dttid"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deleteTipoIden(tiden)}" update="dttid"/>
+						       <p:column headerText="#{msg.labelNombre}" filterBy="#{tiden.nombre}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{tiden.nombre}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{tiden.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dfe" header="EDIT SHIPPING" widgetVar="dfe" minimizable="true" maximizable="true" visible="#{ad.dfe}">
+						<p:panel style="width:500px; height:350px" id="FFE">
+							<p:dataTable id="dtfe" var="lfe" value="#{ad.lisFe}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.feFilter}" binding="#{ad.dtActuFe}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarFormaEnvio(lfe)}" update="dtfe"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deleteFormaEnvio(lfe)}" update="dtfe"/>
+						       <p:column headerText="#{msg.labelNombre}" filterBy="#{lfe.nombre}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{lfe.nombre}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{lfe.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dEF" header="EDIT INVOICE" widgetVar="dEF" minimizable="true" maximizable="true" visible="#{ad.def}">
+						<p:panel style="width:500px; height:350px" id="FEE">
+							<p:dataTable id="dtEFC" var="efg" value="#{ad.lisefc}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{ad.efcFilter}" binding="#{ad.dtActuEfc}">
+							   <p:ajax event="rowEdit" listener="#{ad.editarEstadoFacrura(efg)}" update="dtEFC"/>
+							   <p:ajax event="rowEditCancel" listener="#{ad.deleteEstadoFacrura(efg)}" update="dtEFC"/>
+						       <p:column headerText="#{msg.labelNombre}" filterBy="#{efg.nombre}" filterMatchMode="contains">
+						           <p:cellEditor>
+						               <f:facet name="output"><h:outputText value="#{efg.nombre}" /></f:facet>
+						               <f:facet name="input"><p:inputText value="#{efg.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+						           </p:cellEditor>
+						       </p:column>
+						       <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dsc" header="EDIT STATE CASE" widgetVar="dsc" minimizable="true" maximizable="true" visible="#{ad.dec}">
+						<p:panel style="width:500px; height:350px" id="scc">
+							<p:dataTable id="pest" var="ef" value="#{estc.estl}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.estCFilter}" binding="#{estc.dtActEC}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarEC(ef)}" update="pest"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteEC(ef)}" update="pest"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{ef.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{ef.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{ef.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+								<p:column headerText="#{msg.labelEst}">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{ef.estado}" /></f:facet>
+									   <f:facet name="input">
+											<p:selectOneMenu value="#{ef.estado}" style="width:150px">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+												<f:selectItems value="#{estc.lienu}" var="es" itemValue="#{es.idComponente}" itemLabel="#{es.nombre}"/>
+											</p:selectOneMenu>
+									   </f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelAsigaci}">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{ef.asignacion}" /></f:facet>
+									   <f:facet name="input">
+											<p:selectOneMenu value="#{ef.asignacion}" style="width:150px">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+												<f:selectItems value="#{estc.as}" var="a" itemValue="#{a.id}" itemLabel="#{a.nombre}"/>
+											</p:selectOneMenu>
+									   </f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="cos" header="EDIT COST" widgetVar="cos" minimizable="true" maximizable="true" visible="#{ad.dco}">
+						<p:panel style="width:500px; height:350px" id="SCO">
+							<p:dataTable id="deta" var="ld" value="#{estc.lisdte}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.detFilter}" binding="#{estc.dtActuD}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarDetalle(ld)}" update="deta"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteDetalle(ld)}" update="deta"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{ld.descripcion}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{ld.descripcion}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{ld.descripcion}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labeVa}">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{ld.valor}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{ld.valor}" style="width:100%" label="#{msg.labeVa}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="bnk" header="EDIT BANK" widgetVar="bnk" minimizable="true" maximizable="true" visible="#{ad.db}">
+						<p:panel style="width:500px; height:350px" id="bnks">
+							<p:dataTable id="deRut" var="rut" value="#{estc.lisRut}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.rutFilter}" binding="#{estc.dtActuR}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarRuta(rut)}" update="deRut"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteRuta(rut)}" update="deRut"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{rut.nombrebanco}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{rut.nombrebanco}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{rut.nombrebanco}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelBanco}">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{rut.numero}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{rut.numero}" style="width:100%" label="#{msg.labelBanco}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="dpe" header="EDIT DEPENDENCE" widgetVar="dpe" minimizable="true" maximizable="true" visible="#{ad.dd}">
+						<p:panel style="width:500px; height:350px" id="dpen">
+							<p:dataTable id="deDep" var="depen" value="#{estc.lisDep}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.depeFilter}" binding="#{estc.dtActuDep}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarDependencia(depen)}" update="deDep"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteDependencia(depen)}" update="deDep"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{depen.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{depen.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{depen.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="ttd" header="EDIT TYPE DOC" widgetVar="ttd" minimizable="true" maximizable="true" visible="#{ad.dtd}">
+						<p:panel style="width:500px; height:350px" id="ttdi">
+							<p:dataTable id="deTip" var="tipd" value="#{estc.lisTico}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.ticoFilter}" binding="#{estc.dtActuTico}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarTico(tipd)}" update="deTip"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteTico(tipd)}" update="deTip"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{tipd.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{tipd.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{tipd.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="tsp" header="EDIT SPENDING" widgetVar="tsp" minimizable="true" maximizable="true" visible="#{ad.dg}">
+						<p:panel style="width:500px; height:350px" id="tspi">
+							<p:dataTable id="deTig" var="tiga" value="#{estc.lisTg}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.tgFilter}" binding="#{estc.dtActuTg}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarTipGas(tiga)}" update="deTig"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteTipGas(tiga)}" update="deTig"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{tiga.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{tiga.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{tiga.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="hw" header="EDIT HOMEWORK" widgetVar="hw" minimizable="true" maximizable="true" visible="#{ad.dt}">
+						<p:panel style="width:500px; height:350px" id="hwo">
+							<p:dataTable id="deTt" var="tit" value="#{estc.lisTt}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.ttFilter}" binding="#{estc.dtActuTt}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarTt(tit)}" update="deTt"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteTt(tit)}" update="deTt"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{tit.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{tit.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{tit.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="tax" header="EDIT TAX" widgetVar="tax" minimizable="true" maximizable="true" visible="#{ad.dtx}">
+						<p:panel style="width:500px; height:350px" id="axt">
+							<p:dataTable id="deFpt" var="fpt" value="#{estc.lisFtp}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.ftpFilter}" binding="#{estc.dtActuFtp}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarftp(fpt)}" update="deFpt"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteftp(fpt)}" update="deFpt"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{fpt.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{fpt.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{fpt.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="arc" header="EDIT TAX" widgetVar="arc" minimizable="true" maximizable="true" visible="#{ad.dar}">
+						<p:panel style="width:500px; height:350px" id="arch">
+							<p:dataTable id="deEtxten" var="lext" value="#{estc.lisExten}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+									rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+												 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.extenFilter}" binding="#{estc.dtActuExten}">
+								   <p:ajax event="rowEdit" listener="#{estc.editarExtension(lext)}" update="deEtxten"/>
+								   <p:ajax event="rowEditCancel" listener="#{estc.deleteExtension(lext)}" update="deEtxten"/>
+								   <p:column headerText="#{msg.labelExt}" filterBy="#{lext.extension}" filterMatchMode="contains">
+									   <p:cellEditor>
+										   <f:facet name="output"><h:outputText value="#{lext.extension}" /></f:facet>
+										   <f:facet name="input"><p:inputText value="#{lext.extension}" style="width:100%" label="#{msg.labelExt}"/></f:facet>
+									   </p:cellEditor>
+								   </p:column>
+								   <p:column headerText="#{msg.labelDesc}" filterBy="#{lext.descripcion}" filterMatchMode="contains">
+									   <p:cellEditor>
+										   <f:facet name="output"><h:outputText value="#{lext.descripcion}" /></f:facet>
+										   <f:facet name="input"><p:inputText value="#{lext.descripcion}" style="width:100%" label="#{msg.labelDesc}"/></f:facet>
+									   </p:cellEditor>
+								   </p:column>
+								   <p:column headerText="#{msg.labelDi}" filterBy="#{lext.directorio}" filterMatchMode="contains">
+									   <p:cellEditor>
+										   <f:facet name="output"><h:outputText value="#{lext.directorio}" /></f:facet>
+										   <f:facet name="input"><p:inputText value="#{lext.directorio}" style="width:100%" label="#{msg.labelDi}"/></f:facet>
+									   </p:cellEditor>
+								   </p:column>
+								   <p:column headerText="#{msg.labelEj}" filterBy="#{lext.ejecutable}" filterMatchMode="contains">
+									   <p:cellEditor>
+										   <f:facet name="output"><h:outputText value="#{lext.ejecutable}" /></f:facet>
+										   <f:facet name="input"><p:inputText value="#{lext.ejecutable}" style="width:100%" label="#{msg.labelEj}"/></f:facet>
+									   </p:cellEditor>
+								   </p:column>
+								   <p:column headerText="#{msg.labelEst}">
+									   <p:cellEditor>
+										   <f:facet name="output"><h:outputText value="#{lext.estado}" /></f:facet>
+										   <f:facet name="input">
+												<p:selectOneMenu value="#{lext.estado}" style="width:150px">
+													<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+													<f:selectItems value="#{estc.lienu}" var="es" itemValue="#{es.idComponente}" itemLabel="#{es.nombre}"/>
+												</p:selectOneMenu>
+										   </f:facet>
+									   </p:cellEditor>
+								   </p:column>
+								   <p:column headerText="#{msg.labelEditar}" >
+									<p:rowEditor>
+										</p:rowEditor> 
+								   </p:column>
+							   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="fac" header="EDIT BILL" widgetVar="fac" minimizable="true" maximizable="true" visible="#{ad.df}">
+						<p:panel style="width:500px; height:350px" id="bf">
+							<p:dataTable id="deFpf" var="fpf" value="#{estc.lisFpf}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.fpfFilter}" binding="#{estc.dtActufpf}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarFormaPagoFactura(fpf)}" update="deFpf"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteFormaPagoFactura(fpf)}" update="deFpf"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{fpf.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{fpf.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{fpf.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+					<p:dialog id="par" header="EDIT KINSHIP" widgetVar="par" minimizable="true" maximizable="true" visible="#{ad.dpar}">
+						<p:panel style="width:500px; height:350px" id="pare">
+							<p:dataTable id="dttp" var="tps" value="#{estc.listp}" editable="true" style="margin-bottom:20px" emptyMessage="#{msg.labelNoReg}"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+											 rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{estc.tpFilter}" binding="#{estc.dtActuTp}">
+							   <p:ajax event="rowEdit" listener="#{estc.editarTipoParentesco(tps)}" update="dttp"/>
+							   <p:ajax event="rowEditCancel" listener="#{estc.deleteTipoParentesco(tps)}" update="dttp"/>
+							   <p:column headerText="#{msg.labelNombre}" filterBy="#{tps.nombre}" filterMatchMode="contains">
+								   <p:cellEditor>
+									   <f:facet name="output"><h:outputText value="#{tps.nombre}" /></f:facet>
+									   <f:facet name="input"><p:inputText value="#{tps.nombre}" style="width:100%" label="#{msg.labelNombre}"/></f:facet>
+								   </p:cellEditor>
+							   </p:column>
+							   <p:column headerText="#{msg.labelEditar}" >
+								<p:rowEditor>
+									</p:rowEditor> 
+							   </p:column>
+						   </p:dataTable>
+						</p:panel>
+					</p:dialog>
+				</div>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

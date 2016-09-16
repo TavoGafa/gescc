@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+  	<ui:define name="head">:: GESCC ::</ui:define>
+  	<ui:define name="menus">
+		<p:graphicImage url="../../images/briefcase_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../../images/user_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../../images/address_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+		<p:graphicImage url="../../images/wallet_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(4,0)}" value="Create Custumers" ajax="false"/><br/>
+	</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form >
+			<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>
+				<div align="center">
+					<p:panel style="width:950px; height:300px" id="plGlEm" header="#{msg.headerMyCo}" closable="true" >
+						<div align="left">
+							<p:outputLabel value="BIENVENIDO "/>#{prin.empreDTO.nombreEmpresa} <h:outputLabel value="AL SISTEMA DE GESCC"/>
+						</div>
+						<div class="ui-g" align="center">	
+							<h:outputLabel value="COMPANY INFORMATION"/><br/>
+							<p:separator/>
+							<div class="ui-g" align="center">
+								<h:panelGrid columns="4" style="whit:1100px; height:320" cellspacing="6" cellpadding="6">
+								
+								<h:outputLabel value="Legal Name: "/><p:inputText value="#{prin.empreDTO.nombreEmpresa}" style="width:150px;" disabled="true"/>
+								<h:outputLabel value="Contact Name: "/><p:inputText value="#{prin.empreDTO.nombreEmpresa}"  style="width:150px;" disabled="true"/>							
+								<h:outputLabel value="Addres: "/><p:inputText value="#{prin.empreDTO.direccion}" style="width:150px;" disabled="true"/>
+								<h:outputLabel value="Addres: "/><p:inputText value="#{prin.empreDTO.direccion}" style="width:150px;" disabled="true"/> 
+								<h:outputLabel value="City:  "/><p:inputText value="#{prin.empreDTO.ciudad}" style="width:150px;" disabled="true"/> 
+								<h:outputLabel value="City:  "/><p:inputText value="#{prin.empreDTO.ciudad}" style="width:150px;" disabled="true"/>
+								<h:outputLabel value="EIN:  "/><p:inputText value="#{prin.empreDTO.ein}" style="width:150px;" disabled="true"/>
+							</h:panelGrid>
+							<f:facet name="footer">
+								<div align="center">
+									<p:commandButton value="Edit" action="#{emed.editarEmpresa()}" ajax="false" update="edemp"/>
+								</div>
+							</f:facet>
+							</div>
+						</div>
+					</p:panel>	
+					<p:dialog header="COMPANY INFORMATION" widgetVar="edemp" minHeight="800" minimizable="true" maximizable="true" id="edemp" visible="#{emed.activeCuatro}">
+						<p:layout style="min-width:600px;min-height:400px;">
+						    <p:layoutUnit position="west" resizable="true" size="200" minSize="40" maxSize="200">
+						        <p:commandLink actionListener="#{emed.activeEdits(1)}" value="Contact Information" update="gidU,gidd,gidt"/><br/><br/>
+						        <p:commandLink actionListener="#{emed.activeEdits(2)}" value="Legal Information" update="gidU,gidd,gidt"/><br/><br/>
+						        <p:commandLink actionListener="#{emed.activeEdits(3)}" value="Company Identeification" update="gidU,gidd,gidt"/><br/><br/>
+						    </p:layoutUnit>
+						 
+						    <p:layoutUnit position="center">
+						       	<p:panel style="width:300px; height:400px" id="gidU" header="Contact Information" visible="#{emed.editu}">
+									<p:panelGrid  columns="2" id="ok">
+										<h:outputLabel for="comn" value="Company Name " />
+										<p:inputText id="comn" value="#{emed.empreEdit.nombreEmpresa}" style="width:150px;"/>
+										<h:outputLabel for="diru" value="Address " />
+										<p:inputText id="diru" value="#{emed.empreEdit.direccion}" style="width:150px;"/>
+										<p:separator/><p:separator/>
+										<h:outputLabel for="ph" value="Phone" />
+										<p:inputText id="ph" value="#{emed.empreEdit.telf}" style="width:150px;"/>
+										<h:outputLabel for="fas" value="Fax" />
+										<p:inputText id="fas" value="#{emed.empreEdit.fax}" style="width:150px;"/>
+										<h:outputLabel for="ima" value="Email" />
+										<p:inputText id="ima" value="#{emed.empreEdit.email}" style="width:150px;"/>
+									</p:panelGrid>
+								</p:panel>
+								
+								<p:panel style="width:400px; height:300px" id="gidd" header="Legal Information" visible="#{emed.editd}">
+									<p:panelGrid  id="pi" columns="2">
+										<h:outputLabel for="comni" value="Company Name " />
+										<p:inputText id="comni" value="#{emed.empreEdit.nombreEmpresa}" style="width:150px;"/>
+										<h:outputLabel for="diruy" value="Address " />
+										<p:inputText id="diruy" value="#{emed.empreEdit.direccion}" style="width:150px;"/>
+										<p:outputLabel value="#{msg.labelCity}" for="citys" />
+										<p:inputText id="citys" value="#{emed.empreEdit.ciudad}" style="width:150px;" disabled="true"/>
+										<p:outputLabel value="#{msg.labelZip}" for="Cciuzv"/>
+										<p:inputText id="Cciuzv" value="#{emed.empreEdit.zip}" style="width:150px;" disabled="true"/>
+									</p:panelGrid>
+									<p:separator/>
+									<p:panelGrid  id="pid" columns="2">
+										<p:outputLabel value="#{msg.labelCountry}" for="country"/>
+										<p:selectOneMenu value="#{emed.pa}" id="country" style="width:150px" valueChangeListener="#{off.activarEstado}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{ad.listPais}" var="pai" itemValue="#{pai.id}" itemLabel="#{pai.nombre}"/>
+										    <p:ajax event="valueChange" immediate="true" process="@this" update="state"/>
+										</p:selectOneMenu>
+										<p:outputLabel value="#{msg.labelState}" for="state"/>
+										<p:selectOneMenu value="#{emed.est}" id="state" style="width:150px" valueChangeListener="#{off.activarCampos}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+											<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="city"/>
+										</p:selectOneMenu>
+										<p:outputLabel value="#{msg.labelCity}" for="city" />
+										<p:selectOneMenu value="#{emed.ciud}" id="city" style="width: 150px;" valueChangeListener="#{off.activarCamposO}">
+											<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+											<f:selectItems value="#{off.lisCiuE}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+											<p:ajax event="valueChange" immediate="true" process="@this" update="selCciuz"/>
+										</p:selectOneMenu>
+										<p:outputLabel value="#{msg.labelZip}" for="selCciuz"/>
+										<p:selectOneMenu value="#{emed.zi}" id="selCciuz" style="width:150px">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+											<f:selectItems value="#{off.liszipc}" var="c" itemValue="#{c.id}" itemLabel="#{c.zipcode}"/>
+										</p:selectOneMenu>
+									</p:panelGrid>
+								</p:panel>
+								<p:panel style="width:400px; height:300px" id="gidt" header="Company Informatiion" visible="#{emed.editt}">
+									<p:panelGrid id="uy" columns="2">
+										<h:outputLabel for="eiman" value="Federal Employer Identification No." />
+										<p:inputText id="eiman" value="#{emed.empreEdit.ein}" style="width:150px;"/>
+									</p:panelGrid>
+						       	</p:panel>
+						       	<div align="center">
+									<p:commandButton value="Edit" action="#{emed.empEita(empre.empreEdit)}" ajax="false" update="edemp"/>
+								</div>						       						       	
+						    </p:layoutUnit>
+						</p:layout>					
+					</p:dialog>
+				</div>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition> 

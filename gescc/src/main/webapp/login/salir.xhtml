@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template.xhtml">
+	
+	<ui:define name="body">
+		<h:body onunload="ms()">
+			<h:form> 
+				
+				<p:dialog header="#{msg['headerError']}" visible="#{true}"  closable="true" modal="true" width="500">
+					<h:outputLabel value="va a cerrar la ventana"/><br />
+					<div align="center">
+						<p:commandButton value="#{msg['botonAceptar']}" action="#{log.closeDlg()}" update="@form"></p:commandButton>
+					</div>
+				</p:dialog>
+				
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition> 

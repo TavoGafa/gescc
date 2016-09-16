@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-consultas.xhtml">
+	<ui:define name="head">:: GES ::</ui:define>
+	<ui:define name="menus">
+		<p:graphicImage url="../images/briefcase_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(1,0)}" value="My Company" ajax="false"/><br/>
+		<p:graphicImage url="../images/user_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(2,0)}" value="Administrator" ajax="false"/><br/>
+		<p:graphicImage url="../images/address_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(3,0)}" value="Create Officer" ajax="false"/><br/>
+		<p:graphicImage url="../images/wallet_32.png" style="width:20px; height:20px"/><p:commandLink action="#{prin.abrirPagina(4,0)}" value="Create Custumers" ajax="false"/><br/>
+	</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form>
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>
+				<p:dialog header="#{msg.headerAdmin}" widgetVar="empre" minHeight="600" minimizable="true" maximizable="true" id="dpem" visible="#{empre.diaempr}">
+										<p:panel style="width:950px; height:500px" id="plEmpre" header="#{msg.headerOff}">
+											<p:tabView>
+											 	<p:tab title="SING IN">
+											 		<p:outputLabel value="ENTER YOUR EMAIL ADDRESS"/> <br/>
+											 		<p:outputLabel value="We'll use this email to see if you haven an intuil account"/> <br/>
+											 		<h:panelGrid columns="2" style="whit:920px; height:320" cellspacing="6" cellpadding="6" id="paneGrid">
+											 			<h:outputLabel for="email2" value="#{msg.labelEmanil}" />
+											            <p:inputText id="email2" value="#{empre.emailempre}" />
+											            <h:outputLabel for="pass" value="#{msg.labelPass}" />
+											            <p:password id="pass" value="#{empre.pass}" feedback="true" inline="true"/>
+														<f:facet name="footer">
+															<div align="center">
+																<p:commandButton value="#{msg.botonGuarddar}" action="#{empre.validarMail()}" ajax="false" update="tabu"/>
+															</div>
+														</f:facet>
+											 		</h:panelGrid>
+											 	</p:tab>
+											 	<p:tab title="ADD INFO" disabled="#{empre.activeDos}" id="tabu">
+											 		<h:panelGrid columns="2" style="whit:920px; height:320" cellspacing="6" cellpadding="6">
+											 			<p:outputLabel value="#{msg.labelEmpre}" for="emb"/>
+														<p:inputText id="emb" maxlength="25"  style="width:150px;" value="#{empre.emdto.nombreEmpresa}"/>
+														<p:outputLabel value="#{msg.labelIndustry}" for="ind"/>
+														<p:inputText id="ind" maxlength="25"  style="width:150px;" value="#{empre.emdto.industria}"/>
+														<p:outputLabel value="#{msg.labelTipInd}" for="tind"/>
+														<p:inputText id="tind" maxlength="25"  style="width:150px;" value="#{empre.emdto.tipoNego}"/>
+														<p:outputLabel value="#{msg.labelEmplId}" for="empid"/>
+														<p:inputMask id="empid" maxlength="25"  style="width:150px;" value="#{empre.emdto.ein}" mask="99-9999999"/>
+														<p:outputLabel value="#{msg.labelAdress}" for="dire"/>
+														<p:inputText id="dire" maxlength="25"  style="width:150px;" value="#{empre.emdto.direccion}"/>
+														<p:outputLabel value="Apt" for="apt"/>
+														<p:inputText id="apt" maxlength="60"  style="width:150px;" value="#{empre.emdto.apt}"/>
+														<p:outputLabel value="#{msg.labelCountry}" for="country"/>
+														<p:selectOneMenu value="#{empre.emdto.pais}" id="country" style="width:150px" valueChangeListener="#{off.activarEstado}">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{ad.listPais}" var="pai" itemValue="#{pai.id}" itemLabel="#{pai.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="state"/>
+														</p:selectOneMenu>
+														<p:outputLabel value="#{msg.labelState}" for="state"/>
+														<p:selectOneMenu value="#{empre.emdto.estado}" id="state" style="width:150px" valueChangeListener="#{off.activarCampos}">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""/>
+															<f:selectItems value="#{off.lisEstP}" var="esp" itemValue="#{esp.id}" itemLabel="#{esp.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="city"/>
+														</p:selectOneMenu>
+														<p:outputLabel value="#{msg.labelCity}" for="city" />
+														<p:selectOneMenu value="#{empre.emdto.ciudad}" id="city" style="width: 150px;" valueChangeListener="#{off.activarCamposO}">
+															<f:selectItem itemLabel="#{msg['labelSeleccione']}" itemValue=""/>
+															<f:selectItems value="#{off.lisCiuE}" var="cie" itemValue="#{cie.id}" itemLabel="#{cie.nombre}"/>
+															<p:ajax event="valueChange" immediate="true" process="@this" update="selCciuz"/>
+														</p:selectOneMenu>
+														<p:outputLabel value="#{msg.labelZip}" for="selCciuz"/>
+														<p:selectOneMenu value="#{empre.emdto.zip}" id="selCciuz" style="width:150px">
+															<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="0"/>
+															<f:selectItems value="#{off.liszipc}" var="c" itemValue="#{c.id}" itemLabel="#{c.zipcode}"/>
+														</p:selectOneMenu>
+														<p:outputLabel value="#{msg.labelEmaisEm}" for="ema"/>
+														<p:inputText id="ema" maxlength="60"  style="width:150px;" value="#{empre.emdto.email}"/>
+														<p:outputLabel value="#{msg.labelPhone}" for="phone"/>
+														<p:inputMask id="phone" value="#{empre.emdto.telf}" mask="(999) 999-9999" style="width: 150px;"/>
+														<p:outputLabel value="#{msg.labelFax}" for="fax"/>
+														<p:inputMask id="fax" value="#{empre.emdto.fax}" mask="(999) 999-9999" style="width: 150px;"/>
+														<f:facet name="footer">
+															<div align="center">
+																<p:commandButton value="#{msg.botonGuarddar}" action="#{empre.crearEmpresa()}" ajax="false" update="tbf,empt"/>
+															</div>
+														</f:facet>
+											 		</h:panelGrid>
+											 	</p:tab>
+											 </p:tabView> 
+										</p:panel>
+									</p:dialog>
+									<p:dialog id="dp" header="CREATE BUSSINESS" widgetVar="empt" minimizable="true" maximizable="true" visible="#{empre.create}">
+										<p:panel style="width:500px; height:350px" id="pytr">
+											<p:outputLabel value="YOU'RE ALL SET!!"/> <br/><BR/>
+											 		<p:outputLabel value="We'll use this email to see if you haven an intuil account"/> <br/>
+													<div align="center">
+														<p:commandButton value="#{msg.botonStart}" action="#{empre.start()}" ajax="false" update="@form"/>
+													</div>
+										</p:panel>
+									</p:dialog>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

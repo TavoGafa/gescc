@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template.xhtml">
+	
+	<ui:define name="body">
+		<h:body>
+			<h:form> 
+				<div align="center">
+				<br /><br /><br /><br /><br /><br />
+				
+				<p:panel header="#{msg.headerCompany}" style="width:500px;" visible="#{log.panPri}">
+					<p:outputLabel value="NO COMPANY OPEN"/><br/>
+					<p:outputLabel value="Select a company that you've previously opened and click Open"/><br/>
+					<p:dataTable id="empCar" var="enmp" value="#{log.empresa}" editable="true" style="margin-bottom:30px" emptyMessage="#{msg.labelNoReg}"
+							rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "	
+							rowsPerPageTemplate="5,10,15,20" ajax="false" filteredValue="#{log.empreFilter}" binding="#{log.dtEmpr}">
+							<p:column headerText="#{msg.labelEmpre}"  >
+								<h:outputText value="#{enmp.nombreEmpresa}" />
+							</p:column>
+							<p:column headerText="#{msg.labelOpen}"  >
+								<div align="center">
+									<p:commandButton action="#{log.cargarEmpresa(enmp)}" ajax="false" icon="ui-icon-extlink" update="@form"/>
+								</div>
+							</p:column>
+							<p:column headerText="#{msg.labelEdit}"  >
+								<div align="center">
+									<p:commandButton action="#{log.editarEmpres(enmp)}" ajax="false" icon="ui-icon-extlink" update="@form"/>
+								</div>
+							</p:column>
+					</p:dataTable>
+					<f:facet name="footer">
+						<div align="center">
+							<br/><br/>
+							<p:commandButton value="#{msg.botonCreateEm}" action="#{log.createEmpre()}" update="@form" ajax="false" immediate="true"/>		
+							<p:commandButton value="#{msg.botonReso}"	action="#{log.createEmpre()}" update="@form" ajax="false"/>
+							<p:commandButton value="#{msg.botonOpen}"	action="#{log.createEmpre()}" update="@form" ajax="false"/>
+						</div>
+					</f:facet>
+					
+					
+				</p:panel>
+				<p:panel header="#{msg.headerLogin}" style="width:300px;" visible="#{log.panLog}">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="#{msg['labelUsuario']}*"/>
+						<h:panelGroup>
+							<p:inputText id="user" value="#{log.user}" ></p:inputText>
+							<p:message for="user"/>
+						</h:panelGroup>
+						<h:outputLabel value="#{msg['labelPasword']}*"/>
+						<h:panelGroup>
+							<p:password id="pas" value="#{log.pass}" ></p:password>
+							<p:message for="pas"/>
+						</h:panelGroup>
+						<f:facet name="footer">
+							<div align="center">
+								<p:commandButton value="#{msg['botonAceptar']}" action="#{log.accessCheck()}" ajax="false"></p:commandButton>		
+								<p:commandButton value="#{msg['botonVolver']}" action="#{log.volver()}" ajax="false"></p:commandButton>
+							</div>
+						</f:facet>
+					</h:panelGrid>
+				</p:panel>
+				</div>
+				<p:dialog header="#{msg['headerError']}" visible="#{log.show}"  closable="false" modal="true" width="500">
+					<h:outputLabel value="#{msg['errorLogin2']}"/><br />
+					<div align="center">
+						<p:commandButton value="#{msg['botonAceptar']}" action="#{log.closeDlg()}" update="@form"></p:commandButton>
+					</div>
+				</p:dialog>
+				
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition> 
